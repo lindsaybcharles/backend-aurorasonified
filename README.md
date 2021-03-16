@@ -10,5 +10,5 @@
     Linux: `source ./.venv/bin/activate`
 3. Install the required python packages using following comand
     `python -m pip install -r requirements.txt`
-4. 
+4. upcoming changes
 
