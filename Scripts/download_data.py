@@ -36,7 +36,7 @@ def press_by_id(driver, id):
             time.sleep(sleep_time)
     return 1
 
-def create_driver(download_destination, headless = True):
+def create_driver(path_download, headless = True):
     """Create an instance of Firefox with appropriate options"""
     options = Options()
     options.headless = headless
@@ -45,13 +45,19 @@ def create_driver(download_destination, headless = True):
     profile.set_preference("browser.download.dir", path_download) # Path to download destination
     profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/plain") # Don't prompt for download
     
-    driver = webdriver.Firefox(firefox_profile=profile, options=options)
+    exec_path = os.path.abspath(r"./Scripts/geckodriver.exe")
+    driver = webdriver.Firefox(
+        firefox_profile=profile,
+        options=options, 
+        executable_path=exec_path
+        )
     return driver
     
 
 def get_download_destination():
     """Just get relative path for download folder"""
-    return os.path.abspath("../Downloaded_data")
+    print(os.path.abspath(r"./Downloaded_data"))
+    return os.path.abspath(r"./Downloaded_data")
     
 def main():
     

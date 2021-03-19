@@ -2,3 +2,4 @@ ctcsound==6.14.2
 scipy==1.6.1
 selenium==3.141.0
 geckodriver-autoinstaller==0.1.0
+python-osc==1.7.4
