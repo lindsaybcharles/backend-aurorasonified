@@ -42,7 +42,7 @@ def create_driver(download_destination, headless = True):
     options.headless = headless
     profile = webdriver.FirefoxProfile()
     profile.set_preference("browser.download.folderList", 2) # Don't use standard download folder
-    profile.set_preference("browser.download.dir", path_download) # Path to download destination
+    profile.set_preference("browser.download.dir", download_destination) # Path to download destination
     profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/plain") # Don't prompt for download
     
     driver = webdriver.Firefox(firefox_profile=profile, options=options)
