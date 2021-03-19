@@ -17,19 +17,36 @@ nchnls = 2
 
 gilisten OSCinit 7000
 
-  instr   1
-    kamp init 0
-    kk  OSClisten gilisten, "/osc_message_sent", "f", kamp
-    printk 0,kamp
-    
-  endin
+;-------- instrument to receive OSC message from python -------;
+        instr   1
+        
+            kamp1 init 0
+            kamp2 init 0
+            nxtmsg:
+                kcheck  OSClisten gilisten, "/osc_message_from_python1", "f", kamp1
+                kcheck  OSClisten gilisten, "/osc_message_from_python2", "f", kamp2
+            if (kcheck == 0) goto ex
+                printk 0,kamp1
+                printk 0,kamp2
+            ex:     
+                endin
+
+;-------- instrument to send osc message to python ----------;
+
+;    instr  2
+;        kosc oscil 0.1, 0.0001
+;        OSCsend kosc, "127.0.0.1", 8000, "/osc_message_to_python", "f", kosc
+;        printk 0, kosc
+;        
+;        
+;    endin 
 </CsInstruments>
 <CsScore>
 f0 z
+;f 1 0 1024 10 1
 i 1 0 [60*60*24*7]
+;i 2 0 [60*60*24*7]
 </CsScore>
 </CsoundSynthesizer>
-
-
 
         
