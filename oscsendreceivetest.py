@@ -7,31 +7,45 @@ import argparse                             #  to understand messages that come 
 import asyncio
 import time
 
+ip = "127.0.0.1"
+sendport = 9000
+inport = 8000 
+
+
+temperature = 1000
+phi = 58
+speed = 450
+
+
+# client = ""
 
 def get_osc_messages(data_path, data_sent):
     print("Osc Messages Received", data_sent)
     #print(data_path)
 
+    send_osc_messages(sendport)
+
+
 def send_osc_messages(sendport):
-    count = 0
-    while count<50:
-        if count == 50:
-            break
-        else:
-            client.send_message("/osc_message_from_python1", 1.5)
-            client.send_message("/osc_message_from_python2", 2.5)
-            print("message sent on port:", sendport)
-            count += 1
-            time.sleep(1)
+    # count = 0
+    # while count<50:
+    #     if count == 50:
+    #         break
+    #     else:
+    client.send_message("/osc_message_from_python1", [temperature, phi, speed])
+    #client.send_message("/osc_message_from_python2", 2.5)
+    print("message sent on port:", sendport)
+            # count += 1
+            # time.sleep(1)
+
 
 if __name__ == '__main__':
-    ip = "127.0.0.1"
-    sendport = 7000
-    inport = 8000   
+     
 
-    ##sendind osc messages on
+    ##sending osc messages on
+    global client
     client = udp_client.SimpleUDPClient(ip,sendport)
-    send_osc_messages(sendport)
+    
     ##catching osc messages or receiving osc messages
     dispatcher = dispatcher.Dispatcher()
     dispatcher.map("/osc_message_to_python", get_osc_messages) #creating the variables we want to receive osc messages for
@@ -40,4 +54,8 @@ if __name__ == '__main__':
     server = osc_server.ThreadingOSCUDPServer((ip,inport),dispatcher)
     print("servering on {}".format(server.server_address))
     server.serve_forever()
+
+
+parameters = [temperature, phi, speed]
+
  
